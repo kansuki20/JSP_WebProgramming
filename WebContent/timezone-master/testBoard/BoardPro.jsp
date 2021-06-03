@@ -14,20 +14,13 @@
 
 	request.setCharacterEncoding("utf-8");
 	//memberId, productId, boardId, title, sysdate, content
-	BoardDTO dto = new BoardDTO(  //productId 부분 수정, boardId 부분 수정
+	BoardDTO dto = new BoardDTO(  //productId 부분 수정, boardId, sysdate는 DAO에서 처리(여기선 아무거나 들어가도 상관없음)
 			sessionId, 1, 1, request.getParameter("title"),  "sysdate", request.getParameter("content")
 			);
 	
-	//세션값 판별해서 
-	if (memberDao.SessionCheck(sessionId)) {
-		if(check == 0) { //
-			
-		}
-		boardDao.boardInsert(dto);
-		response.sendRedirect("BoardList.jsp"); //게시판 리스트로 이동
-	} else {
-		response.sendRedirect("BoardForm.jsp");
-	}
+	boardDao.boardInsert(dto);
+	response.sendRedirect("BoardList.jsp");
+	
 %>
 <!DOCTYPE html>
 <html>
