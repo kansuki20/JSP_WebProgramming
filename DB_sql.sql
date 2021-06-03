@@ -37,6 +37,10 @@ create table board ( -- 후기게시판
     -- 왼쪽은 부모 테이블에 값이 삭제되면 자식 테이블의 컬럼 삭제, 오른쪽은 부모 테이블에 값이 삭제되면 자식 NULL값으로 변경
 
 create sequence board_seq_auto start with 1 increment by 1 minvalue 1 maxvalue 99999999;
+-- 시퀸스 초기화하고 싶을 때
+alter sequence board_seq_auto increment by 1;
+-- (drop으로 삭제)
+drop SEQUENCE board_seq_auto;
 -- insert into board values(memberId, productId, board_seq_auto.nextval, title, regtime, content);
 -- boardId 부분에 시퀀스를 넣어줌
     -- CREATE SEQUENCE 시퀀스이름 START WITH 1 INCREMENT BY 1 MINVALUE 1 MAXVALUE 99999999;
@@ -44,6 +48,8 @@ create sequence board_seq_auto start with 1 increment by 1 minvalue 1 maxvalue 9
     -- increment by 증가할 값 지정
     -- maxvalue : 최대 값 지정
     -- minvalue : 최소 값 지정
+
+-- auto Increment 조회
 
 create table basket ( -- 장바구니 아직 안함
     
