@@ -64,3 +64,6 @@ drop table board; -- 후기게시판 table 삭제
 -- BOARD 테이블 Test용    
 select to_char(regtime, 'yy/mm/dd hh24:mi') from board;
 insert into board values ('as', 1, board_seq_auto.nextval, 'title', sysdate, 'content');
+
+select count(MemberId) from board
+where ProductId = 1;
