@@ -15,7 +15,7 @@
 	request.setCharacterEncoding("utf-8");
 	//memberId, productId, boardId, title, sysdate, content
 	BoardDTO dto = new BoardDTO(  //productId 부분 수정, boardId, sysdate는 DAO에서 처리(여기선 아무거나 들어가도 상관없음)
-			sessionId, 1, 1, request.getParameter("title"),  "sysdate", request.getParameter("content")
+			sessionId, 1, 1, "sysdate", request.getParameter("content")
 			);
 	
 	boardDao.boardInsert(dto);
