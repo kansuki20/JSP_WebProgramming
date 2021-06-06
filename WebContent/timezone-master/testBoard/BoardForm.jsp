@@ -8,8 +8,6 @@
 </head>
 <body>
 	<form action="BoardPro.jsp">
-		<p>title</p>
-		<input type="text" id="title" name="title"><br>
 		<p>content</p>
 		<input type="text" id="content" name="content"><br><br>
 		<button type="submit">글 등록</button>

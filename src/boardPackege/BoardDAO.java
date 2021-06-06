@@ -33,12 +33,11 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		
 		// 멤버id, 상품id, 게시판id, title, sysdate, content
-		String sql = "insert into BOARD values(?, ?, board_seq_auto.nextval, ?, sysdate, ?)";
+		String sql = "insert into BOARD values(?, ?, board_seq_auto.nextval, sysdate, ?)";
 		pstmt = con.prepareStatement(sql);
 		pstmt.setString(1, dto.getMemberId());
 		pstmt.setInt(2, dto.getProductId());
-		pstmt.setString(3, dto.getTitle());
-		pstmt.setString(4, dto.getContent());
+		pstmt.setString(3, dto.getContent());
 		
 		return pstmt.executeUpdate();
 	}
@@ -58,8 +57,8 @@ public class BoardDAO {
 		while(rs.next()) {
 			BoardDTO dto = new BoardDTO(
 					rs.getString("memberId"), rs.getInt("productId")
-					, rs.getInt("boardId"), rs.getString("title")
-					, rs.getString("regtime"), rs.getString("content"));
+					, rs.getInt("boardId"), rs.getString("regtime")
+					, rs.getString("content"));
 			dtos.add(dto);
 		}
 		

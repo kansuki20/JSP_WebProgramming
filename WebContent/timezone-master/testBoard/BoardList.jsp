@@ -11,6 +11,7 @@
     pageEncoding="UTF-8"%>
 <%
 	String sessionId = (String)session.getAttribute("sessionId");
+	
 	BoardDAO dao = new BoardDAO();
 	MemberDAO memberDao = new MemberDAO();
 
@@ -39,7 +40,6 @@
 			<th>유저ID</th>
 			<th>상품ID</th>
 			<th>게시판ID</th>
-			<th>타이틀</th>
 			<th>등록일자</th>
 			<th>내용</th>
 		</tr>
@@ -50,7 +50,6 @@
 			<td><%=dto.getMemberId()%></td>
 			<td><%=dto.getProductId()%></td>
 			<td><%=dto.getBoardID()%></td>
-			<td><%=dto.getTitle()%></td>
 			<td><%=dto.getRegtime()%></td>
 			<td><%=dto.getContent()%></td>
 		</tr>
