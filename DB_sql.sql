@@ -21,9 +21,8 @@ create table board ( -- 후기게시판
     memberId NVARCHAR2(20),
     productId NUMBER,
     boardID NUMBER constraint PK_BOARD_BOARDID PRIMARY KEY,
-    title NVARCHAR2(60) NOT NULL,
     regtime date NOT NULL,
-    content NVARCHAR2(100) NOT NULL,
+    content NVARCHAR2(500) NOT NULL,
     -- 외래키 지정
     constraint FK_MEMBER_BOARD_MEMBERID FOREIGN KEY(memberId)
         REFERENCES MEMBER(id) ON DELETE CASCADE,
@@ -50,6 +49,9 @@ drop SEQUENCE board_seq_auto;
     -- minvalue : 최소 값 지정
 
 -- auto Increment 조회
+select LAST_NUMBER from USER_SEQUENCES where SEQUENCE_NAME = 'board_seq_auto';
+alter sequence board_seq_auto 
+alter sequence board_seq_auto increment by 1;
 
 create table basket ( -- 장바구니 아직 안함
     
@@ -60,5 +62,5 @@ drop table productinfo; -- productinfo table 삭제
 drop table board; -- 후기게시판 table 삭제
 
 -- BOARD 테이블 Test용    
-insert into board values ('as', 1, 1, 'title', sysdate, 'content');
 select to_char(regtime, 'yy/mm/dd hh24:mi') from board;
+insert into board values ('as', 1, board_seq_auto.nextval, 'title', sysdate, 'content');
