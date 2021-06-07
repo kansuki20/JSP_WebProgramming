@@ -5,6 +5,11 @@ create table member ( -- 회원정보
     email nvarchar2(30) NOT NULL,
     address nvarchar2(50) NOT NULL,
     admin int);
+select * from board where productid = 1;
+select p.name, p.thumbnaillink, b.memberId, b.content, b.regtime from board b join productinfo p
+on b.productid = p.productid
+where b.productid in (select thumbnaillink from productinfo
+                      where productid = 1);
 
 create table productinfo ( -- 상품정보 테이블
     productId NUMBER constraint PK_PRODUCTINFO_PRODUCTID PRIMARY KEY, --pk
@@ -28,6 +33,15 @@ create table board ( -- 후기게시판
         REFERENCES MEMBER(id) ON DELETE CASCADE,
     constraint FK_PRODUCTINFO_BOARD_PRODUCTID FOREIGN KEY(productID)
         REFERENCES PRODUCTINFO(productID) ON DELETE CASCADE
+);
+
+create table DetailReview ( --리뷰게시판
+    productId NUMBER,
+    boardId NUMBER,
+    constraint FK_PRODUCTINFO_DETAILREVIEW_PRODUCTID FOREIGN KEY (productId)
+        REFERENCES PRODUCTINFO(productID) ON DELETE CASCADE,
+    constraint FK_BOARDID_DETAILREVIEW_BOARDID FOREIGN KEY (boardId)
+        REFERENCES BOARD(boardID) ON DELETE CASCADE
 );
     --외래키
     -- CONSTRAINT [제약조건 명] FOREIGN KEY([컬럼명])
@@ -56,6 +70,13 @@ alter sequence board_seq_auto increment by 1;
 create table basket ( -- 장바구니 아직 안함
     
 );
+    -- DetailReview
+    select * from (select rownum num, L.* from (select B.memberId, B.regtime, B.content, P.name, P.thumbnaillink from board B join productinfo P on B.productId = P.productId order by regtime desc) L) where num between 1 and 9;
+    
+    select B.boardId, B.memberId, B.regtime, B.content, P.info, P.detailedlink
+    from board B join productinfo P
+    on B.productId = P.productId
+    order by regtime desc;
     
 drop table member; -- MEMBER table 삭제
 drop table productinfo; -- productinfo table 삭제
