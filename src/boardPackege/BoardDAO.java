@@ -62,7 +62,7 @@ public class BoardDAO {
 		
 		return count;
 	}
-	
+	// BoardList ↓↓↓
 	public ArrayList<BoardDTO> getListBoard(int page, int numOfRecords) throws SQLException, NamingException {
 		ArrayList<BoardDTO> dtos = new ArrayList<BoardDTO>();
 		
@@ -94,6 +94,38 @@ public class BoardDAO {
 		
 		return dtos;
 	}
-
-
+	// DetailReviewList ↓↓↓
+	public ArrayList<DetailBoardDTO> getDetailListBoard(int page, int numOfRecords) throws SQLException, NamingException {
+		ArrayList<DetailBoardDTO> dtos = new ArrayList<DetailBoardDTO>();
+		
+		con = getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		// select memberId, productId, boardId, title, to_char(regtime, 'yyyy/mm/dd hh24:mi'), content from board;
+		String sql = "select * from (select rownum num, L.* from "
+				+ "(select B.memberId, B.regtime, B.content, P.name, P.thumbnaillink "
+				+ "from board B join productinfo P on B.productId = P.productId order by regtime desc) L) "
+				+ "where num between ? and ?";
+		
+		pstmt = con.prepareStatement(sql);
+		
+		pstmt.setInt(1, page*numOfRecords - 9);
+		pstmt.setInt(2, page*numOfRecords);
+		
+		rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			DetailBoardDTO dto = new DetailBoardDTO(
+					rs.getString("memberId"), rs.getString("regtime")
+					, rs.getString("content"), rs.getString("name")
+					, rs.getString("thumbnaillink"));
+			dtos.add(dto);
+		}
+		
+		rs.close();
+		pstmt.close();
+		con.close();
+		
+		return dtos;
+	}
 }
