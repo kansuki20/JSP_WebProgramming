@@ -35,13 +35,13 @@ create table board ( -- 후기게시판
         REFERENCES PRODUCTINFO(productID) ON DELETE CASCADE
 );
 
-create table DetailReview ( --리뷰게시판
+create table basket(
+    memberId NVARCHAR2(20),
     productId NUMBER,
-    boardId NUMBER,
-    constraint FK_PRODUCTINFO_DETAILREVIEW_PRODUCTID FOREIGN KEY (productId)
-        REFERENCES PRODUCTINFO(productID) ON DELETE CASCADE,
-    constraint FK_BOARDID_DETAILREVIEW_BOARDID FOREIGN KEY (boardId)
-        REFERENCES BOARD(boardID) ON DELETE CASCADE
+    constraint FK_MEMBER_BASKET_MEMBERID FOREIGN KEY (memberId)
+        REFERENCES MEMBER(id) ON DELETE CASCADE,
+    constraint FK_PRODUCTINFO_BASKET_PRODUCTID FOREIGN KEY (productID)
+        REFERENCES PRODUCTINFO(productID) ON DELETE CASCADE
 );
     --외래키
     -- CONSTRAINT [제약조건 명] FOREIGN KEY([컬럼명])
