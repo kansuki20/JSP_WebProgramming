@@ -15,7 +15,6 @@ create table productinfo ( -- 상품정보 테이블
     productId NUMBER constraint PK_PRODUCTINFO_PRODUCTID PRIMARY KEY, --pk
     productCode NUMBER NOT NULL,
     name NVARCHAR2(30) NOT NULL,
-    info NVARCHAR2(200) NOT NULL,
     detailedLink NVARCHAR2(100) NOT NULL,
     thumbnailLink NVARCHAR2(100) NOT NULL,
     price NUMBER NOT NULL,
